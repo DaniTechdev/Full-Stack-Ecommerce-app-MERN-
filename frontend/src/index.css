@@ -26,7 +26,7 @@
   max-width: var(--max-width-1400);
   margin: auto;
   padding: 5rem 1rem;
-  border: 1px solid;
+  /* border: 1px solid; */
 }
 
 .section__header {
@@ -36,7 +36,7 @@
   font-family: var(--header-font);
   color: var(--text-dark);
   text-align: center;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
 
 .section__subheader {

@@ -37,6 +37,7 @@ const Catogories = () => {
           <Link
             to={`/categories/${category.path}`}
             className="categories__card"
+            key={category.name}
           >
             <img src={category.image} alt={category.name} />
             <h4>{category.name}</h4>
