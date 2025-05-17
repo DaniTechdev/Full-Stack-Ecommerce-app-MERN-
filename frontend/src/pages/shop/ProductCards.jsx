@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import RatingStars from "../../../components/RatingStars";
+import RatingStars from "../../components/RatingStars";
 
 const ProductCards = ({ products }) => {
   return (

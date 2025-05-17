@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ProductCards from "./ProductCards";
 
-import products from "../../../data/products.json";
+import products from "../../data/products.json";
 
 const TrendingProducts = () => {
   const [visibleProducts, setVisibleProducts] = useState(8);
@@ -18,8 +18,17 @@ const TrendingProducts = () => {
       </p>
 
       {/* products card */}
-      <div className="mt-12">
-        <ProductCards products={products} />
+      <div className="product__card__container">
+        <ProductCards products={products.slice(0, visibleProducts)} />
+      </div>
+
+      {/* Load more product btn */}
+      <div className="product__btn">
+        {visibleProducts < products.length && (
+          <button className="btn" onClick={loadMoreProducts}>
+            Load More
+          </button>
+        )}
       </div>
     </section>
   );
