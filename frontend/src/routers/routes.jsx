@@ -4,6 +4,7 @@ import Home from "../pages/home/Home.jsx";
 import Catogories from "../pages/home/Catogories.jsx";
 import Category from "../pages/category/Category.jsx";
 import Search from "../pages/search/Search.jsx";
+import ShopPage from "../pages/shop/ShopPage.jsx";
 
 let router = createBrowserRouter([
   {
@@ -12,7 +13,8 @@ let router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/categories/:categoryName", element: <Category /> },
-      { path: "search", element: <Search /> },
+      { path: "/search", element: <Search /> },
+      { path: "/shop", element: <ShopPage /> },
     ],
   },
 ]);
