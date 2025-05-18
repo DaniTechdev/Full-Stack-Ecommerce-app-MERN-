@@ -417,6 +417,10 @@ nav {
   box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.1);
 }
 
+.blog__contents {
+  margin-top: 30px;
+}
+
 .blog__card__content {
   padding: 1rem;
   text-align: center;

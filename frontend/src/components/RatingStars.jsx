@@ -4,9 +4,9 @@ const RatingStars = ({ rating }) => {
   const stars = [];
 
   // Create an array of stars based on the rating
-  //function of functioj looping/iterating
+  //function of function looping/iterating
   for (let i = 1; i <= 5; i++) {
-    console.log("stars", stars);
+    // console.log("stars", stars);
 
     stars.push(
       <span
