@@ -25,7 +25,7 @@ const Catogories = () => {
     },
     {
       name: "Costmetics",
-      path: "costmetics",
+      path: "cosmetics",
       image: category1,
     },
   ];
