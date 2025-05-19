@@ -44,6 +44,14 @@ const ShopPage = () => {
 
     //filter by price range
     if (filterState.priceRange) {
+      //         Practical Use Case
+      // This pattern is commonly used in:
+
+      // E-commerce filters (price range sliders)
+
+      // URL query parsing (e.g., ?price=100-500)
+
+      // Form data processing
       const [minPrice, maxPrice] = filterState.priceRange
         .split("-")
         .map(Number);
@@ -87,7 +95,7 @@ const ShopPage = () => {
         <div className="flex flex-col md:flex-row md:gap-12 gap-8">
           {/* Left side */}
           <ShopFiltering
-            filter={filters}
+            filters={filters}
             filterState={filterState}
             setFilterState={setFilterState}
             clearFilters={clearFilters}
