@@ -78,7 +78,7 @@ const ShopFiltering = ({
 
       <button
         onClick={clearFilters}
-        className="bg-red-500 mt-5 py-1 px-4 text-white rounded"
+        className="bg-red-500 mt-5 py-1 px-4 text-white rounded product__card__container"
       >
         Clear All Filters
       </button>

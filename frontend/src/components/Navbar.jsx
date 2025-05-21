@@ -1,7 +1,14 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+  const products = useSelector((state) => state.cart.products);
+
+  console.log(products);
+
+  console.log("product count state", products);
+
   return (
     <header className="fixed-nav-bar w-nav">
       <nav className="max-w-screen-2xl  mx-auto px-4 flex flex-row justify-between items-center ">
@@ -44,7 +51,7 @@ const Navbar = () => {
                 className="text-sm inline-block  text-white rounded-[50%]
               bg-red-800  text-center w-[18px] h-[18px] absolute -top-2 -right-2"
               >
-                0
+                {products.length}
               </sup>
             </button>
           </span>

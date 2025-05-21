@@ -505,6 +505,17 @@ nav {
   border-top: 2px solid var(--extra-light);
 }
 
+.btn__add_cart {
+  font-size: 15px;
+  background-color: red;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
 @media (width < 900px) {
   .nav__links {
     display: none;
