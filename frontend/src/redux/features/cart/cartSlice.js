@@ -4,6 +4,7 @@ const initialState = {
   products: [],
   selectedItems: 0,
   totalPrice: 0,
+  tax: 0,
   taxRate: 0.05,
   grandTotal: 0,
 };
@@ -23,7 +24,7 @@ const cartSlice = createSlice({
         console.log("Items already added");
       }
 
-      state.selectedItems == setSelectedItems(state);
+      state.selectedItems = setSelectedItems(state);
       state.totalPrice = setTotalPrice(state);
       state.tax = setTax(state);
       state.grandTotal = setGrandTotal(state);
@@ -31,20 +32,19 @@ const cartSlice = createSlice({
   },
 });
 
-//utilities functions
-
+// Utility functions
 export const setSelectedItems = (state) =>
   state.products.reduce((total, product) => {
     return Number(total + product.quantity);
-  });
+  }, 0);
 
 export const setTotalPrice = (state) => {
-  state.products.reduce((total, product) => {
+  return state.products.reduce((total, product) => {
     return Number(total + product.quantity * product.price);
-  });
+  }, 0);
 };
 
-export const setTax = (state) => setTotalPrice(state) * state.taxRate;
+export const setTax = (state) => Number(setTotalPrice(state) * state.taxRate);
 
 export const setGrandTotal = (state) => {
   return setTotalPrice(state) + setTotalPrice(state) * state.taxRate;

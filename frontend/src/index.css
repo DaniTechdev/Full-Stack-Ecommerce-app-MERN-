@@ -130,7 +130,11 @@ nav {
 }
 
 .modal__background {
-  opacity: 0.7;
+  opacity: 0.8;
+}
+
+.cart__modal {
+  margin-top: 15px;
 }
 
 .header__container {
