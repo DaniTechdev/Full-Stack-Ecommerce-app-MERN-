@@ -1,7 +1,32 @@
 import React from "react";
 import OrderSummary from "./OrderSummary";
+import { useDispatch } from "react-redux";
+import {
+  updateQuantity,
+  removeFromCart,
+} from "../../redux/features/cart/cartSlice";
+import { useSelector } from "react-redux";
 
-const CartModal = ({ products, isCartOpen, onClose }) => {
+const CartModal = ({ isCartOpen, onClose }) => {
+  const products = useSelector((state) => state.cart.products);
+  console.log("products", products);
+
+  const dispatch = useDispatch();
+
+  const handleQuantity = (type, id) => {
+    const payload = { type, id };
+
+    dispatch(updateQuantity(payload));
+  };
+
+  const handleRemove = (e, id) => {
+    e.preventDefault();
+
+    const payload = { id };
+
+    dispatch(removeFromCart(payload));
+  };
+
   return (
     <div
       className={`fixed z-[1000] inset-0 bg-black modal__background    ${
@@ -69,6 +94,7 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
                       <button
                         className="size-6 flex items-center justify-center py-1.5 rounded-full bg-gray-200 text-gray-700 
                       hover:bg-red-500 hover:text-white ml-8"
+                        onClick={() => handleQuantity("decrement", item._id)}
                       >
                         -
                       </button>
@@ -78,12 +104,16 @@ const CartModal = ({ products, isCartOpen, onClose }) => {
                       <button
                         className="size-6 flex items-center justify-center py-1.5 rounded-full bg-gray-200 text-gray-700 
                       hover:bg-red-500 hover:text-white "
+                        onClick={() => handleQuantity("increment", item._id)}
                       >
                         +
                       </button>
 
                       <div className="ml-5 ">
-                        <button className="text-red-500 hover:text-red-800 mr-4 ">
+                        <button
+                          className="text-red-500 hover:text-red-800 mr-4 "
+                          onClick={(e) => handleRemove(e, item._id)}
+                        >
                           {" "}
                           Remove
                         </button>

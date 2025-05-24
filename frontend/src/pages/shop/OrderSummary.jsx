@@ -1,7 +1,9 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { clearCart } from "../../redux/features/cart/cartSlice";
 
 const OrderSummary = () => {
+  const dispatch = useDispatch();
   const products = useSelector((store) => store.cart.products);
 
   console.log(
@@ -14,6 +16,11 @@ const OrderSummary = () => {
   );
 
   //   const {} = useSelector(store);
+
+  const handleClearCart = (e) => {
+    e.preventDefault();
+    dispatch(clearCart({}));
+  };
   return (
     <div className="bg-red-300 mt-5 rounded  text-base">
       <div className="px-6 py-4 space-y-5">
@@ -37,6 +44,7 @@ const OrderSummary = () => {
               marginBottom: "6px",
               padding: "4px",
             }}
+            onClick={(e) => handleClearCart(e)}
           >
             <span className="mr-2">Clear Cart</span>{" "}
             <i className="ri-delete-bin-7-line"></i>

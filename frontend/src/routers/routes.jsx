@@ -6,6 +6,8 @@ import Category from "../pages/category/Category.jsx";
 import Search from "../pages/search/Search.jsx";
 import ShopPage from "../pages/shop/ShopPage.jsx";
 import SingleProduct from "../pages/shop/productDetails/SingleProduct.jsx";
+import Login from "../components/Login.jsx";
+import Register from "../components/Register.jsx";
 
 let router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ let router = createBrowserRouter([
       { path: "/shop", element: <ShopPage /> },
       { path: "/shop/:id", element: <SingleProduct /> },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
   },
 ]);
 
