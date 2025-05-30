@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { useLoginUserMutation } from "../redux/features/auth/authApi";
 
 const Login = () => {
   const [message, setMessage] = useState("");
@@ -7,6 +9,12 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const dispatch = useDispatch();
+  //call user login mutation
+  const [loginUser, { isLoading: loginLoading }] = useLoginUserMutation();
+  // console.log("loginUser", loginUser); loginUser is a function which rtk defined the dispatch method inside
+
+  //haandle login
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -14,8 +22,12 @@ const Login = () => {
       email,
       password,
     };
-
-    console.log("data", data);
+    try {
+      const response = await loginUser(data).unwrap();
+      console.log("response from login data", response);
+    } catch (error) {
+      setMessage("Please provide  a vaalid eamil and password");
+    }
   };
 
   return (

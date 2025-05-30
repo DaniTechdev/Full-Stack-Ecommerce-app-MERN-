@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const CartModal = ({ isCartOpen, onClose }) => {
   const products = useSelector((state) => state.cart.products);
-  console.log("products", products);
+  // console.log("products", products);
 
   const dispatch = useDispatch();
 
