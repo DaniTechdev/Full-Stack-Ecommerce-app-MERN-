@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginUserMutation } from "../redux/features/auth/authApi";
 
 const Login = () => {
@@ -8,6 +8,8 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   //call user login mutation
@@ -24,7 +26,9 @@ const Login = () => {
     };
     try {
       const response = await loginUser(data).unwrap();
-      console.log("response from login data", response);
+      // console.log("response from login data", response);
+      alert("Login successfully");
+      navigate("/");
     } catch (error) {
       setMessage("Please provide  a vaalid eamil and password");
     }
