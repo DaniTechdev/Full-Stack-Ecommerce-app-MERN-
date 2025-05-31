@@ -1,8 +1,8 @@
-const { createSlice } = require("@reduxjs/toolkit");
+import { createSlice } from "@reduxjs/toolkit";
 
 const loadUserFromLocalStorage = () => {
   try {
-    const serializedState = localStorage.get("user");
+    const serializedState = localStorage.getItem("user");
 
     if (serializedState == null) return { user: null };
 
@@ -19,7 +19,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     setUser: (state, action) => {
-      state.setUser = action.payload.user;
+      state.user = action.payload.user;
       localStorage.setItem("user", JSON.stringify(state.user));
     },
 
@@ -30,5 +30,5 @@ const authSlice = createSlice({
   },
 });
 
-export const {} = authSlice.actions;
+export const { setUser, logout } = authSlice.actions;
 export default authSlice.reducer;
