@@ -26,9 +26,59 @@ const authApi = createApi({
         body: credentials,
       }),
     }),
+
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "/logout",
+        method: "POST",
+      }),
+    }),
+
+    getUsers: builder.query({
+      query: () => ({
+        url: "/users",
+        method: "GET",
+      }),
+      refetchOnMount: true,
+      invalidatesTags: ["users"],
+    }),
+
+    deleteUser: builder.mutation({
+      query: (userId) => ({
+        url: `/user/${userId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    updateUserRole: builder.mutation({
+      query: ({ userId, role }) => ({
+        url: `/user/${userId}`,
+        method: "PUT",
+        body: { role },
+      }),
+      invalidatesTags: ["User"],
+    }),
+
+    editProfile: builder.mutation({
+      query: (profileData) => ({
+        url: `/edit-profile`,
+        method: "PATCH",
+        body: profileData,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
-export const { useRegisterUserMutation, useLoginUserMutation } = authApi;
+export const {
+  useRegisterUserMutation,
+  useLoginUserMutation,
+  useLogoutUserMutation,
+  useGetUsersQuery,
+  useDeleteUserMutation,
+  useUpdateUserRoleMutation,
+  useEditProfileMutation,
+} = authApi;
 
 export default authApi;
