@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CartModal from "../pages/shop/CartModal";
 
 import avaterImg from "../assets/avatar.png";
+import { useLogoutUserMutation } from "../redux/features/auth/authApi";
+import { logout } from "../redux/features/auth/authSlice";
 
 const Navbar = () => {
   const products = useSelector((state) => state.cart.products);
@@ -17,10 +19,10 @@ const Navbar = () => {
   };
 
   //show if user is logged in
-
   const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.auth);
+  const [logoutUser] = useLogoutUserMutation();
+  const navigate = useNavigate();
 
   // console.log("user", user);
 
@@ -49,6 +51,16 @@ const Navbar = () => {
 
   const dropDownMenus =
     user?.role === "admin" ? [...adminDropDownMenu] : [...userDropDownMenu];
+
+  const handleLogOut = async () => {
+    try {
+      await logoutUser();
+      dispatch(logout());
+      navigate("/");
+    } catch (error) {
+      console.log("Failed to log out", error);
+    }
+  };
 
   return (
     <header className="fixed-nav-bar w-nav">
@@ -130,6 +142,12 @@ const Navbar = () => {
                           </Link>
                         </li>
                       ))}
+
+                      <li>
+                        <Link className="dropdown-items" onClick={handleLogOut}>
+                          Logout
+                        </Link>
+                      </li>
                     </ul>
                   </div>
                 )}
