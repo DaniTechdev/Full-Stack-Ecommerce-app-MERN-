@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import productData from "../../data/products.json";
 import ProductCards from "./ProductCards";
 import ShopFiltering from "./ShopFiltering";
-import { useFetchAllProductsQuery } from "../../redux/features/products/productsApi";
 
 const filters = {
   categories: ["all", "accessories", "dresss", "jewellery", "cosmetics"],
@@ -17,33 +16,60 @@ const filters = {
 };
 
 const ShopPage = () => {
+  const [products, setProducts] = useState(productData);
+
   const [filterState, setFilterState] = useState({
     category: "all",
     color: "all",
     priceRange: "",
   });
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [ProductPerPage] = useState(8);
+  //filter functions
+  const applyFilters = () => {
+    let filteredProducts = productData;
 
-  const { category, color, priceRange } = filterState;
+    //filter by category
+    if (filterState.category && filterState.category !== "all") {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.category === filterState.category
+      );
+    }
 
-  const [minPrice, maxPrice] = priceRange.split("-").map(Number);
+    //filter by color
+    if (filterState.color && filterState.color !== "all") {
+      filteredProducts = filteredProducts.filter(
+        (product) => product.color === filterState.color
+      );
+    }
 
-  const {
-    data: { products = [], totalPages, totalProducts } = {},
-    error,
-    isLoading,
-  } = useFetchAllProductsQuery({
-    category: category !== "all" ? category : "",
-    color: color !== "all" ? color : "",
-    minPrice: isNaN(minPrice) ? "" : minPrice,
-    maxPrice: isNaN(maxPrice) ? "" : maxPrice,
-    page: currentPage,
-    limit: ProductPerPage,
-  });
+    //filter by price range
+    if (filterState.priceRange) {
+      //         Practical Use Case
+      // This pattern is commonly used in:
+
+      // E-commerce filters (price range sliders)
+
+      // URL query parsing (e.g., ?price=100-500)
+
+      // Form data processing
+      const [minPrice, maxPrice] = filterState.priceRange
+        .split("-")
+        .map(Number);
+
+      filteredProducts = filteredProducts.filter(
+        (product) => product.price >= minPrice && product.price <= maxPrice
+      );
+    }
+
+    setProducts(filteredProducts);
+  };
+
+  useEffect(() => {
+    applyFilters();
+  }, [filterState]);
 
   //clear the filter
+
   const clearFilters = () => {
     setFilterState({
       category: "all",
@@ -51,9 +77,6 @@ const ShopPage = () => {
       priceRange: "",
     });
   };
-
-  if (isLoading) return <div>Loading....</div>;
-  if (error) return <div>Error loading products...</div>;
 
   return (
     <>
