@@ -43,6 +43,8 @@ const ShopPage = () => {
     limit: ProductPerPage,
   });
 
+  console.log("totaalPaage", totalPages);
+
   //clear the filter
   const clearFilters = () => {
     setFilterState({
@@ -52,8 +54,19 @@ const ShopPage = () => {
     });
   };
 
+  //hanlde paage change
+
+  const handlePageChange = (pageNumber) => {
+    if (pageNumber > 0 && pageNumber <= totalPages) {
+      setCurrentPage(pageNumber);
+    }
+  };
+
   if (isLoading) return <div>Loading....</div>;
   if (error) return <div>Error loading products...</div>;
+
+  const startProduct = (currentPage - 1) * ProductPerPage + 1;
+  const endProduct = startProduct + products.length - 1;
 
   return (
     <>
@@ -81,9 +94,60 @@ const ShopPage = () => {
           {/* Right side */}
           <div>
             <h3 className="text-xl font-medium mb-4">
-              Available Products :{products.length}
+              Showing {startProduct} to {endProduct} of {totalProducts} products
             </h3>
             <ProductCards products={products} />
+
+            {/* Pagination control */}
+
+            <div
+              className="mt-6 flex justify-center"
+              style={{
+                marginTop: "20px",
+              }}
+            >
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md mr-2"
+                style={{
+                  padding: "5px 10px",
+                  marginRight: "8px",
+                }}
+              >
+                Previous
+              </button>
+
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  disabled={currentPage === 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  key={index}
+                  className={`px-4 py-2 rounded-md ${
+                    currentPage === index + 1
+                      ? `bg-blue-500 text-white `
+                      : "bg-gray-300 text-gray-700"
+                  }`}
+                  style={{
+                    padding: "5px 10px",
+                    margin: "0px 5px",
+                  }}
+                >
+                  {index + 1}
+                </button>
+              ))}
+
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => handlePageChange(currentPage + 1)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded-md ml-2"
+                style={{
+                  padding: "5px 10px",
+                  marginLeft: "8px",
+                }}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </section>
