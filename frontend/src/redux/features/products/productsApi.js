@@ -32,7 +32,7 @@ const productsApi = createApi({
       providesTags: ["Products"],
     }),
 
-    fetchProductById: (builder) => ({
+    fetchProductById: builder.query({
       query: (id) => `/${id}`,
       providesTags: (result, error, id) => [{ type: "Products", id }],
     }),
@@ -52,7 +52,7 @@ const productsApi = createApi({
     }),
 
     updateProduct: builder.mutation({
-      query: (id, ...rest) => ({
+      query: ({ id, ...rest }) => ({
         url: `/update-product/${id}`,
         method: "PATCH",
         body: rest,
