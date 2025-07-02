@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import RatingStars from "../../../components/RatingStars";
 import { useDispatch } from "react-redux";
 import { useFetchProductByIdQuery } from "../../../redux/features/products/productsApi";
+import { addToCart } from "../../../redux/features/cart/cartSlice";
 
 const SingleProduct = () => {
   const { id } = useParams();
@@ -21,7 +22,8 @@ const SingleProduct = () => {
   const productReviews = data?.reviews || [];
 
   const handleAddToCart = (product) => {
-    dispatch({});
+    dispatch(addToCart(product));
+    console.log("Product added to cart:", product);
   };
 
   // console.log("data", data);
@@ -90,7 +92,13 @@ const SingleProduct = () => {
               </div>
             </div>
 
-            <button className="mt-6 px-12 py-3 bg-red-400 text-white rounded-md btn__add_cart">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleAddToCart(singleProduct);
+              }}
+              className="mt-6 px-12 py-3 bg-red-400 text-white rounded-md btn__add_cart"
+            >
               Add to Cart
             </button>
           </div>
